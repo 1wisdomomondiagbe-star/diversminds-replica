@@ -1,4 +1,6 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc";
 import { MessageCircle, ArrowRight, Menu, Globe, Users, Heart, Star, Brain, MessageSquare, Hand, BookOpen, CheckCircle2, Home as HomeIcon, School, Zap } from "lucide-react";
 import { useState } from "react";
 import {
@@ -9,6 +11,10 @@ import {
 } from "@/components/ui/accordion";
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     childName: "",
@@ -139,10 +145,59 @@ export default function Home() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submitIntake = trpc.intake.submit.useMutation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Handle form submission
+    
+    if (!formData.parentName || !formData.phone || !formData.email || !formData.consent) {
+      alert("Please fill in all required fields and consent to be contacted.");
+      return;
+    }
+
+    try {
+      const result = await submitIntake.mutateAsync({
+        childName: formData.childName,
+        ageRange: formData.ageRange,
+        diagnosisStatus: formData.diagnosisStatus,
+        observationTimeframe: formData.observationTimeframe,
+        selectedNeeds: formData.selectedNeeds,
+        selectedServices: formData.selectedServices,
+        deliveryPreference: formData.deliveryPreference,
+        mainGoal: formData.mainGoal,
+        parentEmotion: formData.parentEmotion,
+        parentName: formData.parentName,
+        phone: formData.phone,
+        email: formData.email,
+        location: formData.location,
+        consent: formData.consent,
+      });
+
+      if (result.success) {
+        alert(result.message);
+        setFormData({
+          childName: "",
+          ageRange: "",
+          diagnosisStatus: "",
+          observationTimeframe: "",
+          selectedNeeds: [],
+          selectedServices: [],
+          deliveryPreference: "",
+          mainGoal: "",
+          parentEmotion: "",
+          parentName: "",
+          phone: "",
+          email: "",
+          location: "",
+          consent: false,
+        });
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -706,9 +761,10 @@ export default function Home() {
               <div className="pt-4">
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-6 text-base sm:text-lg rounded-lg"
+                  disabled={submitIntake.isPending}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-6 text-base sm:text-lg rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Get Started with DiverseMinds
+                  {submitIntake.isPending ? "Submitting..." : "Get Started with DiverseMinds"}
                 </Button>
               </div>
             </form>

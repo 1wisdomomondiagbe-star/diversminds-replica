@@ -1,0 +1,21 @@
+CREATE TABLE `intake_submissions` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`childName` varchar(255),
+	`ageRange` varchar(50),
+	`diagnosisStatus` varchar(100),
+	`observationTimeframe` varchar(100),
+	`childNeeds` text,
+	`servicesInterested` text,
+	`deliveryPreference` varchar(100),
+	`mainGoal` text,
+	`parentEmotion` varchar(100),
+	`parentName` varchar(255) NOT NULL,
+	`phone` varchar(20) NOT NULL,
+	`email` varchar(320) NOT NULL,
+	`location` varchar(255),
+	`consent` int NOT NULL DEFAULT 0,
+	`status` enum('pending','contacted','completed','archived') NOT NULL DEFAULT 'pending',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `intake_submissions_id` PRIMARY KEY(`id`)
+);

@@ -1,0 +1,85 @@
+{
+  "build": {
+    "builder": "nixpacks"
+  },
+  "deploy": {
+    "startCommand": "node dist/index.js",
+    "restartPolicyType": "on_failure",
+    "restartPolicyMaxRetries": 5
+  },
+  "variables": {
+    "NODE_ENV": "production",
+    "DATABASE_URL": {
+      "description": "MySQL database connection string",
+      "required": true
+    },
+    "JWT_SECRET": {
+      "description": "Secret key for JWT token signing",
+      "required": true
+    },
+    "VITE_APP_ID": {
+      "description": "Manus OAuth application ID",
+      "required": true
+    },
+    "OAUTH_SERVER_URL": {
+      "description": "Manus OAuth server URL",
+      "required": true
+    },
+    "VITE_OAUTH_PORTAL_URL": {
+      "description": "Manus OAuth portal URL for frontend",
+      "required": true
+    },
+    "OWNER_OPEN_ID": {
+      "description": "Owner's Manus OpenID",
+      "required": true
+    },
+    "OWNER_NAME": {
+      "description": "Owner's name",
+      "required": true
+    },
+    "BUILT_IN_FORGE_API_URL": {
+      "description": "Manus built-in API URL",
+      "required": true
+    },
+    "BUILT_IN_FORGE_API_KEY": {
+      "description": "Manus built-in API key",
+      "required": true
+    },
+    "VITE_FRONTEND_FORGE_API_URL": {
+      "description": "Frontend Manus API URL",
+      "required": true
+    },
+    "VITE_FRONTEND_FORGE_API_KEY": {
+      "description": "Frontend Manus API key",
+      "required": true
+    },
+    "GMAIL_USER": {
+      "description": "Gmail address for sending notifications",
+      "required": false
+    },
+    "GMAIL_PASSWORD": {
+      "description": "Gmail app password",
+      "required": false
+    },
+    "ADMIN_EMAIL": {
+      "description": "Admin email for receiving notifications",
+      "required": false
+    },
+    "WHATSAPP_BUSINESS_ACCOUNT_ID": {
+      "description": "WhatsApp Business Account ID",
+      "required": false
+    },
+    "WHATSAPP_PHONE_NUMBER_ID": {
+      "description": "WhatsApp Phone Number ID",
+      "required": false
+    },
+    "WHATSAPP_ACCESS_TOKEN": {
+      "description": "WhatsApp Business API access token",
+      "required": false
+    },
+    "WEBHOOK_URL": {
+      "description": "Webflow webhook URL for form submissions",
+      "required": false
+    }
+  }
+}

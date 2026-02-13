@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
-import { MessageCircle, ArrowRight, Menu, Globe, Users, Heart, Star, Brain, MessageSquare, Hand, BookOpen, CheckCircle2, Home as HomeIcon, School, Zap, X, Check } from "lucide-react";
+import { MessageCircle, ArrowRight, Menu, Globe, Users, Heart, Star, Brain, MessageSquare, Hand, BookOpen, CheckCircle2, Home as HomeIcon, School, Zap, X, Check, Facebook, Instagram } from "lucide-react";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -950,6 +950,17 @@ export default function Home() {
               <p className="text-sm text-gray-400">
                 DiverseMinds Special Needs Consult Ltd. provides comprehensive therapeutic and educational support services.
               </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Follow Us</h4>
+              <div className="flex gap-4">
+                <a href="https://www.facebook.com/share/1MoMsXtkN4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
+                  <Facebook size={24} />
+                </a>
+                <a href="https://www.instagram.com/diverseminds_therapy?igsh=ejEweWtwc2dwaDF5&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-400 transition-colors">
+                  <Instagram size={24} />
+                </a>
+              </div>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
